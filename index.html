@@ -2,6 +2,7 @@
 <html>
 <head>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.3/Tone.js'></script>
+  <title>Theremin Sim</title>
   <style type="text/css">
     #container {
       position:absolute;
@@ -37,10 +38,11 @@
     document.getElementById('container').innerHTML = html;
     function noteDown(elem) {
       var note = elem.dataset.note;
-      osc = new Tone.Oscillator(note, "sine").toDestination();
+      osc = new Tone.Oscillator(note, "square").toDestination();
       osc.start();
       function onMouseOver(event) {
         osc.volume.value = -32+0.12*(210-event.clientY);
+        console.log(osc.frequency.value);
       }
       document.addEventListener("mousemove", onMouseOver);
     }
