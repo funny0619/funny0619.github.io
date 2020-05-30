@@ -61,7 +61,7 @@
       osc = new Tone.Oscillator(note, "square").toDestination();
       osc.start();
       function onMouseOver(event) {
-        osc.volume.value = -32+0.12*(210-event.clientY);
+        osc.volume.value = -48+0.12*(210-event.clientY);
       }
       document.addEventListener("mousemove", onMouseOver);
     }
