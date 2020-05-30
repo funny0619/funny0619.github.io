@@ -2,6 +2,7 @@
 <html>
 <head>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.3/Tone.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <title>Theremin Sim</title>
   <style type="text/css">
     #container {
@@ -25,20 +26,44 @@
       height: 50%;
       border: 1px solid black;
     }
-
+    #video{
+      transform: scaleX(-1);
+    }
   </style>
 </head>
 <body>
   <div id='container'></div>
+  <div id='button'>
+    <button>Click To Play</button>
+  </div>
    <div class="cameraDiv">
     <p><strong>Video</strong></p>
     <div class="camera-container">
       <video id="video"autoplay="true">
       </video>
     </div>
-    <button id="capture" type="button" class="btn btn-outline-primary btn-lg">Take Video</button>
+    <button id="capture" type="button">Take Video</button>
+    <button id="stopCapture" type="button">Stop Video</button>
   </div>
   <script type="text/javascript">
+    const constraints = {
+      video: true
+    };
+    const videoElem = document.querySelector('video');
+    $('#capture').on('click',TakeVideo);
+    $('#stopCapture').on('click',stopVideo);
+    function stopVideo() {
+      const stream = videoElem.srcObject;
+      const tracks = stream.getTracks();
+      tracks.forEach(function(track) {
+        track.stop();
+      });
+      videoElem.srcObject = null;
+    }
+    function TakeVideo() {
+      navigator.mediaDevices.getUserMedia(constraints).
+        then((stream) => {videoElem.srcObject = stream});
+    }
     //How to make sound more like theremin(???) email google?
     var osc;
     var counter = 0
