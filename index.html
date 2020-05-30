@@ -3,33 +3,9 @@
 <head>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.3/Tone.js'></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="index.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
   <title>Theremin Sim</title>
-  <style type="text/css">
-    #container {
-      height: 100px;
-      border: 5px solid black;
-      margin:0 auto;
-    }
-    .whitenote {
-      height:100%;
-      --widthA: calc(100% - 36px);
-      width: calc(var(--widthA) / 36);
-      float:left;
-      border-right:1px solid black;
-    }
-    .cameraDiv {
-
-    }
-    .camera-container {
-      float: none;
-      width: 100%;
-      height: 50%;
-      border: 1px solid black;
-    }
-    #video{
-      transform: scaleX(-1);
-    }
-  </style>
 </head>
 <body>
   <div id='container'></div>
@@ -45,52 +21,5 @@
     <button id="capture" type="button">Take Video</button>
     <button id="stopCapture" type="button">Stop Video</button>
   </div>
-  <script type="text/javascript">
-    const constraints = {
-      video: true
-    };
-    const videoElem = document.querySelector('video');
-    $('#capture').on('click',TakeVideo);
-    $('#stopCapture').on('click',stopVideo);
-    function stopVideo() {
-      const stream = videoElem.srcObject;
-      const tracks = stream.getTracks();
-      tracks.forEach(function(track) {
-        track.stop();
-      });
-      videoElem.srcObject = null;
-    }
-    function TakeVideo() {
-      navigator.mediaDevices.getUserMedia(constraints).
-        then((stream) => {videoElem.srcObject = stream});
-    }
-    //How to make sound more like theremin(???) email google?
-    var osc;
-    var counter = 0
-    var notes = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B']
-    var html = "";
-    for(var octave = 0; octave < 3; octave ++) {
-      for (var i = 0; i<notes.length; i++) {
-        let octaveSign = octave + 3;
-        let data = notes[i] + octaveSign;
-        html += '<div class="whitenote" onmouseover="noteDown(this)" onmouseout="noteUp(this)" data-note ='+data+' >';
-        html += data+'</div>'
-      }
-    }
-    document.getElementById('container').innerHTML = html;
-    function noteDown(elem) {
-      var note = elem.dataset.note;
-      osc = new Tone.Oscillator(note, "square").toDestination();
-      osc.start();
-      function onMouseOver(event) {
-        osc.volume.value = -48+0.12*(210-event.clientY);
-      }
-      document.addEventListener("mousemove", onMouseOver);
-    }
-    function noteUp(elem) {
-      osc.stop();
-    }
-
-  </script>
 </body>
 </html>

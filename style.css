@@ -1,0 +1,24 @@
+#container {
+  height: 100px;
+  border: 5px solid black;
+  margin:0 auto;
+}
+.whitenote {
+  height:100%;
+  --widthA: calc(100% - 36px);
+  width: calc(var(--widthA) / 36);
+  float:left;
+  border-right:1px solid black;
+}
+.cameraDiv {
+
+}
+.camera-container {
+  float: none;
+  width: 100%;
+  height: 50%;
+  border: 1px solid black;
+}
+#video{
+  transform: scaleX(-1);
+}
