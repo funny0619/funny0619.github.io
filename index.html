@@ -5,23 +5,43 @@
   <title>Theremin Sim</title>
   <style type="text/css">
     #container {
-      position:absolute;
-      height: 200px;
+      height: 100px;
       border: 5px solid black;
+      margin:0 auto;
     }
     .whitenote {
       height:100%;
-      width:40px;
+      --widthA: calc(100% - 36px);
+      width: calc(var(--widthA) / 36);
       float:left;
       border-right:1px solid black;
-      position:relative;
+    }
+    .cameraDiv {
+
+    }
+    .camera-container {
+      float: none;
+      width: 100%;
+      height: 50%;
+      border: 1px solid black;
     }
 
   </style>
 </head>
 <body>
   <div id='container'></div>
+   <div class="cameraDiv">
+    <p><strong>Video</strong></p>
+    <!-- Camera -->
+    <div class="camera-container">
+      <video id="video"autoplay="true">
+      </video>
+    </div>
+    <!-- Take Photo Button -->
+    <button id="capture" type="button" class="btn btn-outline-primary btn-lg">Take Video</button>
+  </div>
   <script type="text/javascript">
+    //How to make sound more like theremin(???) email google?
     var osc;
     var counter = 0
     var notes = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B']
@@ -42,7 +62,6 @@
       osc.start();
       function onMouseOver(event) {
         osc.volume.value = -32+0.12*(210-event.clientY);
-        console.log(osc.frequency.value);
       }
       document.addEventListener("mousemove", onMouseOver);
     }
