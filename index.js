@@ -1,30 +1,41 @@
 $(document).ready(function() {
   PopulateKeys();
+  navigator.getUserMedia = 
+    navigator.getUserMedia ||
+    navigator.webkitGetUserMedia ||
+    navigator.mozGetUserMedia ||
+    navigator.msGetUserMedia; 
   $('#capture').on('click',TakeVideo);
   $('#stopCapture').on('click',stopVideo);
+  $('#background').on('click',Process);
   const constraints = {
-    video: true
+    video: true,
+    width: 320, 
+    height: 240
   };
-  const videoElem = document.querySelector('video');
-
+  const video = document.querySelector('video');
   function stopVideo() {
-    const stream = videoElem.srcObject;
+    const stream = video.srcObject;
     const tracks = stream.getTracks();
     tracks.forEach(function(track) {
       track.stop();
     });
-    videoElem.srcObject = null;
+    video.srcObject = null;
   }
   function TakeVideo() {
     navigator.mediaDevices.getUserMedia(constraints).
-      then((stream) => {videoElem.srcObject = stream});
+      then((stream) => {video.srcObject = stream});
+    };
+  function Process() {
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
   }
-})
+});
 
-
-//Video Control
-
-
+function onOpencvReady() {
+  document.getElementById('capture').innerHTML = 'Take Video';
+}
 //Sound Control
 //How to make sound more like theremin(???) email google?
 function PopulateKeys() {

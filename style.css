@@ -10,9 +10,6 @@
   float:left;
   border-right:1px solid black;
 }
-.cameraDiv {
-
-}
 .camera-container {
   float: none;
   width: 100%;
@@ -20,5 +17,8 @@
   border: 1px solid black;
 }
 #video{
+  transform: scaleX(-1);
+}
+#canvas{
   transform: scaleX(-1);
 }
