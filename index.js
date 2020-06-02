@@ -8,31 +8,74 @@ $(document).ready(function() {
   $('#capture').on('click',TakeVideo);
   $('#stopCapture').on('click',stopVideo);
   $('#background').on('click',Process);
-  const constraints = {
-    video: true,
-    width: 320, 
-    height: 240
-  };
   const video = document.querySelector('video');
+  const constraints = {
+      video: true,
+      width: 320, 
+      height: 240
+    };
+  const canvas = document.querySelector('canvas');
+  var cameraStatus = false;
   function stopVideo() {
     const stream = video.srcObject;
     const tracks = stream.getTracks();
     tracks.forEach(function(track) {
       track.stop();
     });
+    cameraStatus = false;
     video.srcObject = null;
   }
   function TakeVideo() {
     navigator.mediaDevices.getUserMedia(constraints).
       then((stream) => {video.srcObject = stream});
-    };
+    cameraStatus = true;
+    video.addEventListener('playing', function() {
+      requestAnimationFrame(Process);
+    })
+  };
   function Process() {
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    canvas.getContext('2d').drawImage(video, 0, 0);
+    const ctx = canvas.getContext("2d");
+    canvas.width = video.width;
+    canvas.height = video.height;
+    ctx.drawImage(video,0,0,canvas.width,canvas.height);
+    requestAnimationFrame(Process);
   }
 });
-
+/*
+function bufferPrepare(bufferval) {
+  bufferArray = [];
+  for (var i = 0; i < bufferval; i++) { //
+  bufferArray.push(new Uint8Array(width * height));
+}
+function readFrame() {
+  try {
+    context.drawImage(video, 0, 0, width, height); 
+  } catch (e) {
+  // The video may not be ready, yet.
+   return null;
+  }
+  return context.getImageData(0, 0, width, height);
+ }
+function measureLightChanges(data) {
+  //Select the next frame from the buffer.
+  var buffer = bufferArray[bufferidx++ % bufferArray.length];
+  for (var i = 0, j = 0; i < buffer.length; i++, j += 4) {
+    // Determine lightness value.
+    var current = greyScale(data[j], data[j + 1], data[j + 2]); 
+    // Set color to black.
+    data[j] = data[j + 1] = data[j + 2] = 0; 
+    // Full opacity for changes.
+    data[j + 3] = 255 * lightnessHasChanged(i, current);   
+    // Store current lightness value.
+    buffer[i] = current;
+  }
+}
+function lightnessHasChanged(index, value) {
+  return bufferArray.some(function (buffer) {
+    return Math.abs(value - buffer[index]) >= thresholdsize;
+  });
+}
+*/
 function onOpencvReady() {
   document.getElementById('capture').innerHTML = 'Take Video';
 }

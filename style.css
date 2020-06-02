@@ -12,8 +12,7 @@
 }
 .camera-container {
   float: none;
-  width: 100%;
-  height: 50%;
+  width: 500px;
   border: 1px solid black;
 }
 #video{
@@ -21,4 +20,6 @@
 }
 #canvas{
   transform: scaleX(-1);
+  filter: grayscale(100%);
+
 }
