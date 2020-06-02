@@ -20,6 +20,5 @@
 }
 #canvas{
   transform: scaleX(-1);
-  filter: grayscale(100%);
 
 }
