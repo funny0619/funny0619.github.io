@@ -3,7 +3,7 @@ $('document').ready(function() {
 })
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
-let videoInterval = 100;
+let videoInterval = 50;
 let isVideo = true;
   navigator.getUserMedia = 
   navigator.getUserMedia ||
@@ -34,9 +34,9 @@ function stopVideo() {
 }
 const modelParams = {
   flipHorizontal: true, // flip e.g for video  
-  maxNumBoxes: 2, // maximum number of boxes to detect
+  maxNumBoxes: 1, // maximum number of boxes to detect
   iouThreshold: 0.5, // ioU threshold for non-max suppression
-  scoreThreshold: 0.79, // confidence threshold for predictions.
+  scoreThreshold: 0.70, // confidence threshold for predictions.
 }
 handTrack.load(modelParams).then(lmodel => {
   model = lmodel;
@@ -53,7 +53,7 @@ function runDetection() {
   model.detect(video).then(predictions => {
     model.renderPredictions(predictions, canvas, context, video);
     if (predictions[0]) {
-      console.log(predictions);
+      console.log(predictions[0]['bbox'][0]);
       osc.volume.value = -48+0.12*(210-parseFloat(predictions[0]['bbox'][1]));
     }
     if (isVideo) {
