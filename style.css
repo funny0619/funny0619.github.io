@@ -1,20 +1,26 @@
 #container {
   height: 100px;
+  width: 40%;
   border: 5px solid black;
-  margin:0 auto;
 }
 .whitenote {
   height:100%;
-  --widthA: calc(100% - 36px);
-  width: calc(var(--widthA) / 36);
+  --widthA: calc(100% - 12px);
+  width: calc(var(--widthA) / 12);
   float:left;
   border-right:1px solid black;
 }
-.camera-container {
-  float: none;
-  width: 500px;
-  border: 1px solid black;
+#videoCanvas {
+  position: relative;
+  left: 75%;
 }
-#video{
-  transform: scaleX(-1);
+#canvas {
+  width: 320px;
+  height: 240px;
+  border: 1px solid black;
+  display: flex;  
+  flex-wrap: wrap;
+}
+.button{
+  position: relative;
 }

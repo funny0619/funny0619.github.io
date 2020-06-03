@@ -11,18 +11,13 @@
   <div id='button'>
     <button>Click To Play</button>
   </div>
-   <div class="cameraDiv">
+  <div id="videoCanvas">
     <p><strong>Video</strong></p>
-    <div class="camera-container">
-      <canvas id="canvas" >
-        <video id="video" height="400" width="640" autoplay="true"></video>
-      </canvas>
-    </div>
-    <button id="capture" type="button">Start Video</button>
-    <button id="stopCapture" type="button">Stop Video</button>
+    <canvas id="canvas" ></canvas>
+    <button class="button" id="capture" type="button">Start Video</button>
+    <button class="button"id="stopCapture" type="button">Stop Video</button>
   </div>
-  <script type="text/javascript">
-  </script>
+  <video hidden="true" id="video" autoplay="true"></video>
   <script src="https://cdn.jsdelivr.net/npm/handtrackjs/dist/handtrack.min.js"></script>
   <script src="index.js"></script>
 </body>
