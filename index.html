@@ -3,7 +3,6 @@
 <head>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.3/Tone.js'></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="index.js"></script>
   <link rel="stylesheet" type="text/css" href="style.css">
   <title>Theremin Sim</title>
 </head>
@@ -15,19 +14,16 @@
    <div class="cameraDiv">
     <p><strong>Video</strong></p>
     <div class="camera-container">
-      <video id="video" height="400" width="640" autoplay="true"></video>
+      <canvas id="canvas" >
+        <video id="video" height="400" width="640" autoplay="true"></video>
+      </canvas>
     </div>
-    <div class="inputoutput">
-      <canvas id="canvas" ></canvas>
-      <div class="caption">canvasOutput</div>
-    </div>
-    <button id="capture" type="button">Wait a moment</button>
+    <button id="capture" type="button">Start Video</button>
     <button id="stopCapture" type="button">Stop Video</button>
   </div>
   <script type="text/javascript">
-
   </script>
-  <script async src="https://docs.opencv.org/master/opencv.js" onload="onOpencvReady();" type="text/javascript"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/javascript.util/0.12.12/javascript.util.min.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/handtrackjs/dist/handtrack.min.js"></script>
+  <script src="index.js"></script>
 </body>
 </html>
