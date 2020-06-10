@@ -1,7 +1,25 @@
+body {
+  background-color: orange;
+}
+h1{
+  text-align: center;
+}
+#volumeBar {
+  width: 5px;
+  height: 100px;
+  background-color: black;
+}
+
+input[type="range"] {
+  transform: rotateZ(270deg);
+}
 #container {
   height: 100px;
   width: 40%;
   border: 5px solid black;
+  display: inline-block;
+  display: flex;  
+  flex-wrap: wrap;
 }
 .whitenote {
   height:100%;
@@ -9,10 +27,12 @@
   width: calc(var(--widthA) / 12);
   float:left;
   border-right:1px solid black;
+  background-color: white;
 }
 #videoCanvas {
   position: relative;
   left: 75%;
+  margin-top: -140px;
 }
 #canvas {
   width: 320px;
@@ -20,7 +40,11 @@
   border: 1px solid black;
   display: flex;  
   flex-wrap: wrap;
+  background-color: white;
 }
 .button{
   position: relative;
+}
+#play {
+  display: inline-block;
 }

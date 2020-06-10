@@ -1,7 +1,7 @@
 $('document').ready(function() {
   PopulateKeys();
 })
-
+var slider = document.getElementById("slider");
 var isSound = false
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');
@@ -15,10 +15,7 @@ let isVideo = true;
 $('#capture').on('click',TakeVideo);
 $('#stopCapture').on('click',stopVideo);
 const video = document.querySelector('video');
-const constraints = {
-    video: true
-  };
-
+const constraints = {video: true};
 let model;
 var cameraStatus = false;
 function stopVideo() {
@@ -53,9 +50,10 @@ function runDetection() {
   model.detect(video).then(predictions => {
     model.renderPredictions(predictions, canvas, context, video);
     if (predictions[0]) {
-      console.log(predictions[0]['bbox'][0]);
+      var sliderValue = -48+0.06*(video.height-parseFloat(predictions[0]['bbox'][1]));
       if(isSound){
-        osc.volume.value = -48+0.06*(video.height-parseFloat(predictions[0]['bbox'][1]));
+        osc.volume.value = sliderValue;
+        slider.value = 48+sliderValue;
       }
     }
     if (isVideo) {
