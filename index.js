@@ -1,7 +1,12 @@
 $('document').ready(function() {
+  var sliderPercentage = slider.value;
+  let string = 'background: linear-gradient(to right, blue ' + sliderPercentage + '%, lightgrey ' + sliderPercentage +'%)';
+  document.getElementById('slider').setAttribute('style',string);
   PopulateKeys();
 })
+var minVolume = -48;
 var slider = document.getElementById("slider");
+var oscVolume = minVolume + 32 * (slider.value/100);
 var isSound = false
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');
@@ -46,14 +51,28 @@ function TakeVideo() {
     }
   });
 }
+
+slider.oninput =  function() {
+  var sliderPercentage = slider.value;
+  let string = 'background: linear-gradient(to right, blue ' + sliderPercentage + '%, lightgrey ' + sliderPercentage +'%)';
+  document.getElementById('slider').setAttribute('style',string);
+  oscVolume = minVolume + 32 * (slider.value/100);
+}
 function runDetection() {
   model.detect(video).then(predictions => {
     model.renderPredictions(predictions, canvas, context, video);
     if (predictions[0]) {
-      var sliderValue = -48+0.06*(video.height-parseFloat(predictions[0]['bbox'][1]));
+      let yValue = (parseFloat(predictions[0]['bbox'][1]) + parseFloat(predictions[0]['bbox'][3]))/2;
+      var percentage = (170 - (yValue-70)) / 170;
+      var volumeValue = minVolume + 32 * percentage;
       if(isSound){
-        osc.volume.value = sliderValue;
-        slider.value = 48+sliderValue;
+        osc.volume.value = volumeValue;
+        oscVolume = volumeValue;
+        percentage = Math.floor(percentage * 100);
+        if(percentage > 100) percentage = 100;
+        let string = 'background: linear-gradient(to right, blue ' + percentage + '%, lightgrey ' + percentage +'%)';
+        document.getElementById('slider').setAttribute('style',string);
+        slider.value = percentage; 
       }
     }
     if (isVideo) {
@@ -70,7 +89,7 @@ function noteDown(elem) {
   var note = elem.dataset.note;
   osc = new Tone.Oscillator(note, "square").toDestination();
   osc.start();
-  osc.volume.value = -24;
+  osc.volume.value = oscVolume;
   isSound = true;
 }
 function noteUp(elem) {

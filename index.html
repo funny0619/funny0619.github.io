@@ -8,18 +8,24 @@
   <title>Theremin Sim</title>
 </head>
 <body>
-  <h1>Theremin Simulator</h1>
+  <div id='header'>
+    <h1>Theremin Simulator</h1>
+  </div>
   <div id='body'>
-    <div id='container'></div>
-      <button id='play'>Click To Play</button>
-    <div id="videoCanvas">
+    <div id="videoDiv">
       <p><strong>Video</strong></p>
       <canvas id="canvas" ></canvas>
+    </div>
+    <div id='buttonDiv'>      
       <button class="button" id="capture" type="button">Start Video</button>
       <button class="button"id="stopCapture" type="button">Stop Video</button>
     </div>
-    <input id='slider' type="range"/>
-  </div>
+    <div id="theremin">
+      <div id='container'></div>
+      <input id='slider' type="range"/>
+      <div id="clearfix"></div>
+    </div>  
+    </div>
   <video hidden="true" id="video" autoplay="true"></video>
   <script src="https://cdn.jsdelivr.net/npm/handtrackjs/dist/handtrack.min.js"></script>
   <script src="index.js"></script>

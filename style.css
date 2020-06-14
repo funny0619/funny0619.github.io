@@ -1,22 +1,16 @@
-h1{
-  text-align: center;
-}
-#volumeBar {
-  width: 5px;
-  height: 100px;
-  background-color: black;
+:root {
+  --margin: 50px;
 }
 
-input[type="range"] {
-  transform: rotateZ(270deg);
+#header {
+  text-align: center;
 }
 #container {
   height: 100px;
-  width: 40%;
+  width: 500px;
   border: 5px solid black;
-  display: inline-block;
-  display: flex;  
-  flex-wrap: wrap;
+  margin-top: var(--margin);
+  float: left;
 }
 .whitenote {
   height:100%;
@@ -26,22 +20,48 @@ input[type="range"] {
   border-right:1px solid black;
   background-color: white;
 }
-#videoCanvas {
-  position: relative;
-  left: 75%;
-  margin-top: -140px;
+#videoDiv {
+  text-align: center;
 }
 #canvas {
   width: 320px;
   height: 240px;
   border: 1px solid black;
-  display: flex;  
-  flex-wrap: wrap;
+  display: inline-block;
   background-color: white;
 }
+#buttonDiv {
+  text-align: center;
+}
 .button{
-  position: relative;
+  display: inline-block;
 }
 #play {
   display: inline-block;
+}
+#slider {
+  -webkit-appearance: none;
+  outline: none;
+  background-color: lightgrey;
+  --widthB: 110px;
+  width:var(--widthB);
+  --heightA: 6px;
+  height: var(--heightA);
+  margin-top: calc(var(--widthB) / 2 + var(--margin) - var(--heightA) / 2);
+  float: left;
+  border-radius: 10px;
+  transform: rotateZ(270deg);
+}
+/*
+#slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 10px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+*/
+#clearfix {
+  clear: both;
 }
